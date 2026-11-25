@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>شارك — القيادة الملهمة</title>
+  <meta name="description" content="صفحة المشاركة في جلسة القيادة الملهمة التفاعلية.">
+  <meta name="theme-color" content="#0A1F44">
+  <link rel="icon" href="assets/img/logo-qiyada.png">
+  <link rel="preload" href="assets/fonts/readex-pro-arabic-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/ibm-plex-sans-arabic-arabic-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/fonts.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/p.css">
+</head>
+<body class="p-body">
+  <header class="p-top">
+    <a class="p-brand" href="index.html" title="تصفح الحقيبة">
+      <img src="assets/img/logo-qiyada.png" alt="">
+      <span><b>القيادة الملهمة</b><small id="pSub">جلسة تفاعلية</small></span>
+    </a>
+    <span class="p-sess" id="pSess" hidden></span>
+  </header>
+  <div class="p-progress" id="pProg" hidden><i></i></div>
+  <main class="p-main" id="view" aria-live="polite"></main>
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="config.js"></script>
+  <script src="assets/js/content.js"></script>
+  <script src="assets/js/icons.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/viz.js"></script>
+  <script src="assets/js/p.js"></script>
+</body>
+</html>

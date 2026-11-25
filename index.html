@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>القيادة الملهمة — حقيبة تفاعلية</title>
+  <meta name="description" content="حقيبة تفاعلية: نموذج القيادة الملهمة (الممارسات الخمس) وأساسيات فريق العمل — مع أنشطة مباشرة يشارك فيها الحضور من جوالاتهم.">
+  <meta name="theme-color" content="#0A1F44">
+  <meta property="og:title" content="القيادة الملهمة — حقيبة تفاعلية">
+  <meta property="og:description" content="الممارسات الخمس للقيادة الملهمة وأساسيات فريق العمل، مع أنشطة يشارك فيها الحضور من جوالاتهم.">
+  <link rel="icon" href="assets/img/logo-qiyada.png">
+  <link rel="preload" href="assets/fonts/readex-pro-arabic-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/ibm-plex-sans-arabic-arabic-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/fonts.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/deck.css">
+</head>
+<body class="deck-body">
+  <div id="app" class="app">
+    <header class="read-head" id="readHead">
+      <img src="assets/img/logo-qiyada.png" alt="">
+      <div class="rt"><b>القيادة الملهمة</b><small>حقيبة تفاعلية</small></div>
+      <a class="btn btn-primary" href="p.html" id="readJoin"><span class="lg">انضم كمشارك</span><span class="sm">شارك</span></a>
+      <button class="btn btn-ghost" id="readPresent" type="button" title="عرض كشرائح">عرض</button>
+    </header>
+
+    <div class="stage-wrap" id="stageWrap">
+      <main class="stage" id="stage" aria-live="polite"></main>
+    </div>
+
+    <div class="status" id="status">
+      <span class="dot" id="stDot"></span>
+      <span>الجلسة: <b id="stSession">—</b></span>
+      <span class="pres" id="stPres" hidden>المقدّم</span>
+      <button type="button" id="stBtn" aria-label="لوحة الجلسة"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5H3"/><path d="M12 19H3"/><path d="M14 3v4"/><path d="M16 17v4"/><path d="M21 12h-9"/><path d="M21 19h-5"/><path d="M21 5h-7"/><path d="M8 10v4"/><path d="M8 12H3"/></svg></button>
+    </div>
+
+    <nav class="dock" id="dock" aria-label="التحكم بالعرض">
+      <button type="button" id="btnPrev" data-tip="السابق" aria-label="السابق"></button>
+      <span class="counter" id="counter">1 / 1</span>
+      <button type="button" id="btnNext" data-tip="التالي" aria-label="التالي"></button>
+      <span class="sep"></span>
+      <button type="button" id="btnGrid" data-tip="كل الشرائح (G)" aria-label="كل الشرائح"></button>
+      <button type="button" id="btnQR" data-tip="رمز المشاركة (Q)" aria-label="رمز المشاركة"></button>
+      <button type="button" id="btnLive" data-tip="لوحة الجلسة (L)" aria-label="لوحة الجلسة"></button>
+      <button type="button" id="btnFS" data-tip="ملء الشاشة (F)" aria-label="ملء الشاشة"></button>
+      <button type="button" id="btnRead" data-tip="وضع القراءة" aria-label="وضع القراءة"></button>
+      <button type="button" id="btnHelp" data-tip="الاختصارات (H)" aria-label="الاختصارات"></button>
+    </nav>
+
+    <div class="progress"><i id="progressBar"></i></div>
+
+    <div class="overlay" id="ovOverview" role="dialog" aria-label="كل الشرائح">
+      <button class="ov-close" type="button" aria-label="إغلاق"></button>
+      <div class="ov-grid"><h2>كل الشرائح</h2><div class="thumbs"></div></div>
+    </div>
+
+    <div class="overlay" id="ovQR" role="dialog" aria-label="رمز المشاركة">
+      <button class="ov-close" type="button" aria-label="إغلاق"></button>
+      <div class="ov-qr">
+        <div class="qr-card" data-qr="">
+          <h4>امسح للانضمام</h4>
+          <div class="qr-svg"></div>
+          <div class="qr-meta"><span class="qr-url"></span><span class="qr-session"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay" id="ovLive" role="dialog" aria-label="لوحة الجلسة">
+      <button class="ov-close" type="button" aria-label="إغلاق"></button>
+      <div class="ov-panel"></div>
+    </div>
+
+    <div class="overlay" id="ovHelp" role="dialog" aria-label="الاختصارات">
+      <button class="ov-close" type="button" aria-label="إغلاق"></button>
+      <div class="ov-panel">
+        <h2>اختصارات لوحة المفاتيح</h2>
+        <p>تعمل مع أغلب أجهزة التحكم (الكليكر).</p>
+        <h3>التنقل</h3>
+        <div class="kbd-grid">
+          <kbd>→ / Space / PageDown</kbd><span>التالي (وكشف الخطوة التالية داخل الشريحة)</span>
+          <kbd>← / PageUp</kbd><span>السابق</span>
+          <kbd>Home / End</kbd><span>أول / آخر شريحة</span>
+          <kbd>G</kbd><span>كل الشرائح</span>
+        </div>
+        <h3>المشاركة والعرض</h3>
+        <div class="kbd-grid">
+          <kbd>Q</kbd><span>رمز QR كبير للمشاركة</span>
+          <kbd>L</kbd><span>لوحة الجلسة (جلسة جديدة، وضع المقدّم، بيانات تجريبية)</span>
+          <kbd>V</kbd><span>تشغيل/إيقاف المقطع</span>
+          <kbd>F</kbd><span>ملء الشاشة</span>
+          <kbd>P</kbd><span>نافذة عرض المقدّم (الملاحظات والشريحة التالية)</span>
+          <kbd>R</kbd><span>وضع القراءة</span>
+          <kbd>Esc</kbd><span>إغلاق النوافذ</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="assets/js/content.js"></script>
+  <script src="assets/js/icons.js"></script>
+  <script src="assets/js/qrcode.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/viz.js"></script>
+  <script src="assets/js/demo.js"></script>
+  <script src="assets/js/deck.js"></script>
+  <script>
+    (function () {
+      var map = { btnPrev: 'chevron-right', btnNext: 'chevron-left', btnGrid: 'layout-grid', btnQR: 'qr-code', btnLive: 'sliders-horizontal', btnFS: 'maximize', btnRead: 'smartphone', btnHelp: 'keyboard' };
+      Object.keys(map).forEach(function (id) { var b = document.getElementById(id); if (b) b.innerHTML = window.icon(map[id]); });
+      document.querySelectorAll('.ov-close').forEach(function (b) { b.innerHTML = window.icon('x'); });
+      var j = document.getElementById('readJoin');
+      if (j && window.API) j.href = window.API.participantUrl(window.API.cleanSession(new URLSearchParams(location.search).get('s') || 'OPEN'), '');
+    })();
+  </script>
+</body>
+</html>

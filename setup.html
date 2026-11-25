@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>دليل تشغيل حقيبة القيادة الملهمة</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="assets/img/logo-qiyada.png">
+  <link rel="stylesheet" href="assets/css/fonts.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <style>
+    body { background: #EEF3F9; color: var(--ink); }
+    .hero { background: linear-gradient(135deg, var(--navy-900), var(--brand)); color: #fff; padding: 46px 20px 70px; }
+    .hero .in { max-width: 860px; margin: 0 auto; }
+    .hero img { height: 46px; filter: brightness(0) invert(1); }
+    .hero h1 { font-family: var(--f-head); font-size: clamp(26px, 4vw, 38px); margin: 18px 0 8px; }
+    .hero p { margin: 0; color: #CFE3F7; font-size: 17px; line-height: 1.8; max-width: 640px; }
+    main { max-width: 860px; margin: -44px auto 60px; padding: 0 16px; }
+    .card { background: #fff; border-radius: 22px; padding: 26px 28px; box-shadow: 0 16px 40px -28px rgba(10, 31, 68, .6), 0 0 0 1px rgba(10, 31, 68, .05); margin-bottom: 18px; }
+    h2 { font-family: var(--f-head); font-size: 22px; margin: 0 0 12px; color: var(--navy-900); display: flex; align-items: center; gap: 12px; }
+    h2 .n { width: 38px; height: 38px; border-radius: 12px; background: var(--amber); color: var(--navy-950); display: grid; place-items: center; font-size: 18px; flex: none; }
+    h3 { font-family: var(--f-head); font-size: 17px; margin: 20px 0 8px; color: var(--brand); }
+    p, li { line-height: 1.9; font-size: 16px; }
+    ol.steps { padding: 0; margin: 10px 0 0; list-style: none; counter-reset: s; display: flex; flex-direction: column; gap: 10px; }
+    ol.steps > li { counter-increment: s; display: flex; gap: 12px; background: var(--ice-50); border-radius: 14px; padding: 12px 14px; }
+    ol.steps > li::before { content: counter(s); width: 28px; height: 28px; border-radius: 50%; background: var(--navy-900); color: #fff; display: grid; place-items: center; font-size: 14px; font-weight: 700; flex: none; margin-top: 2px; }
+    code, kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: #EAF1F9; padding: 2px 7px; border-radius: 6px; font-size: 14px; direction: ltr; display: inline-block; }
+    .en { direction: ltr; unicode-bidi: isolate; color: var(--muted); font-size: 14px; }
+    .note { border-radius: 14px; padding: 12px 16px; background: #FFF6E0; color: #7A4F00; margin-top: 12px; line-height: 1.8; }
+    .ok { background: #E6F7F1; color: #0E6B4F; }
+    .files { display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; margin-top: 8px; }
+    .files code { justify-self: start; }
+    pre.cfg { direction: ltr; text-align: left; background: #0A1F44; color: #E6F0FA; padding: 16px 18px; border-radius: 14px; overflow: auto; font-size: 14px; line-height: 1.7; }
+    pre.cfg b { color: var(--amber); font-weight: 600; }
+    textarea.code { width: 100%; height: 220px; direction: ltr; text-align: left; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12.5px; border: 1px solid var(--line); border-radius: 12px; padding: 12px; background: #F8FAFD; }
+    .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 10px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+    td { padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; font-size: 15px; }
+    td:first-child { white-space: nowrap; }
+    a { color: var(--brand); }
+  </style>
+</head>
+<body>
+  <header class="hero"><div class="in">
+    <img src="assets/img/logo-qiyada.png" alt="">
+    <h1>دليل تشغيل الحقيبة التفاعلية</h1>
+    <p>ثلاث خطوات: قاعدة بيانات Google Sheet (مرة واحدة)، ثم وضع رابطها في ملف الإعدادات، ثم رفع المجلد على أي استضافة. بعدها يصير عندك رابط عام تعرضه وتشاركه مع أي أحد.</p>
+  </div></header>
+
+  <main>
+    <section class="card">
+      <h2>ما الموجود في المجلد؟</h2>
+      <div class="files">
+        <code>index.html</code><span>العرض التفاعلي (57 شريحة) — يُعرض على الشاشة، ويتحول تلقائياً لوضع قراءة على الجوال.</span>
+        <code>p.html</code><span>صفحة المشاركين التي تفتحها رموز QR (التسجيل والأنشطة).</span>
+        <code>config.js</code><span>ملف الإعدادات الوحيد الذي تعدّله.</span>
+        <code>backend/Code.gs</code><span>كود قاعدة البيانات (يُلصق في Google Apps Script).</span>
+        <code>assets/</code><span>الخطوط والصور والمقاطع والبرمجة — لا تحتاج تعديل.</span>
+      </div>
+      <div class="note ok">بدون أي إعداد تشتغل الحقيبة في «وضع تجريبي» للمعاينة: افتح العرض، اضغط <kbd>L</kbd> ثم «إضافة بيانات تجريبية» لترى شكل النتائج.</div>
+    </section>
+
+    <section class="card">
+      <h2><span class="n">1</span>أنشئ قاعدة البيانات (Google Sheet)</h2>
+      <p>هنا تنحفظ كل مشاركات الحضور، وكل نشاط في تبويب مستقل.</p>
+      <ol class="steps">
+        <li><span>افتح <a href="https://sheets.new" target="_blank" rel="noopener">sheets.new</a> لإنشاء جدول جديد، وسمّه مثلاً «مشاركات القيادة الملهمة».</span></li>
+        <li><span>من القائمة: <b>الإضافات ← Apps Script</b> <span class="en">(Extensions → Apps Script)</span>.</span></li>
+        <li><span>احذف الكود الموجود، والصق محتوى <code>backend/Code.gs</code> كاملاً (تقدر تنسخه من المربع أسفل هذه الخطوات).</span></li>
+        <li><span>في أعلى الكود، اكتب رقماً سرياً للمقدّم بين علامتي التنصيص: <code>var PRESENTER_PIN = '7391';</code> — هذا الرقم يفعّل «وضع المقدّم» الذي يجعل جوالات المشاركين تنتقل تلقائياً للنشاط المعروض.</span></li>
+        <li><span>اضغط حفظ (أيقونة القرص) <span class="en">(Save project)</span>.</span></li>
+        <li><span>اضغط <b>نشر ← عملية نشر جديدة</b> <span class="en">(Deploy → New deployment)</span>، ومن أيقونة الترس اختر <b>تطبيق ويب</b> <span class="en">(Web app)</span>.</span></li>
+        <li><span>الإعدادات: <b>التنفيذ باسم: أنا</b> <span class="en">(Execute as: Me)</span> — <b>من يمكنه الوصول: أي شخص</b> <span class="en">(Who has access: Anyone)</span>، ثم <b>نشر</b>.</span></li>
+        <li><span>اضغط <b>منح الإذن</b> <span class="en">(Authorize access)</span> واختر حسابك. إذا ظهرت رسالة أن Google لم يتحقق من التطبيق: <b>متقدم ← الانتقال إلى المشروع</b> <span class="en">(Advanced → Go to … (unsafe))</span> ثم <b>سماح</b>. هذا طبيعي لأن السكربت خاص بك ولا يصل إلا لهذا الجدول.</span></li>
+        <li><span>انسخ <b>رابط تطبيق الويب</b> <span class="en">(Web app URL)</span> — ينتهي بـ <code>/exec</code>.</span></li>
+      </ol>
+      <div class="note">إذا لم يظهر خيار «أي شخص» (بعض حسابات المؤسسات تمنع ذلك)، كرر الخطوات من حساب Gmail شخصي، أو اطلب من مسؤول Google Workspace السماح بالمشاركة الخارجية.</div>
+      <h3>كود Code.gs</h3>
+      <textarea class="code" id="code" readonly spellcheck="false">/**
+ * ============================================================
+ *  حقيبة «القيادة الملهمة» التفاعلية — خادم المشاركات
+ *  Google Apps Script مربوط بجدول Google Sheet
+ * ============================================================
+ *  طريقة التركيب (التفاصيل في setup.html):
+ *   1) أنشئ Google Sheet جديد ← الإضافات (Extensions) ← Apps Script
+ *   2) احذف الكود الموجود والصق هذا الملف كاملاً
+ *   3) غيّر الرقم السري للمقدّم في السطر التالي
+ *   4) نشر (Deploy) ← نشر جديد ← تطبيق ويب (Web app)
+ *      التنفيذ باسم: أنا (Me) — من لديه الوصول: أي شخص (Anyone)
+ *   5) انسخ رابط تطبيق الويب (ينتهي بـ /exec) وضعه في config.js
+ *
+ *  كل نشاط يُحفظ في ورقة (تبويب) مستقلة داخل الجدول.
+ *  العمود «_public» مخفي: يحوي فقط ما يجوز عرضه على الشاشة.
+ *  البيانات الشخصية (الاسم والجهة) لا تخرج من الجدول أبداً.
+ * ============================================================
+ */
+
+// الرقم السري لوضع المقدّم (يجعل جوالات المشاركين تتبع الشريحة المعروضة)
+// اكتب رقماً سرياً بين علامتي التنصيص، مثال: &#x27;7391&#x27; — إذا تركته فارغاً يتعطل وضع المقدّم فقط
+var PRESENTER_PIN = &#x27;&#x27;;
+
+// اتركه فارغاً إذا كان السكربت مفتوحاً من داخل الجدول (Extensions ← Apps Script)
+var SPREADSHEET_ID = &#x27;&#x27;;
+
+var PUB = &#x27;_public&#x27;;
+var FIXED = [&#x27;الوقت&#x27;, &#x27;الجلسة&#x27;, &#x27;المعرّف&#x27;];
+
+function doGet(e) {
+  var p = (e &amp;&amp; e.parameter) ? copy_(e.parameter) : {};
+  if (p.payload) {
+    try { var extra = JSON.parse(p.payload); for (var k in extra) if (has_(extra, k)) p[k] = extra[k]; } catch (err) { /* ignore */ }
+  }
+  return respond_(route_(p));
+}
+
+function doPost(e) {
+  var p = {};
+  try { p = JSON.parse((e &amp;&amp; e.postData &amp;&amp; e.postData.contents) || &#x27;{}&#x27;) || {}; } catch (err) { p = {}; }
+  if (e &amp;&amp; e.parameter) { for (var k in e.parameter) if (has_(e.parameter, k) &amp;&amp; !has_(p, k)) p[k] = e.parameter[k]; }
+  return respond_(route_(p));
+}
+
+function route_(p) {
+  try {
+    switch (String(p.action || &#x27;&#x27;)) {
+      case &#x27;&#x27;:
+      case &#x27;ping&#x27;: return { ok: true, service: &#x27;inspiring-leadership-kit&#x27;, time: Date.now(), sheets: ss_().getSheets().length };
+      case &#x27;submit&#x27;: return submit_(p);
+      case &#x27;results&#x27;: return results_(p);
+      case &#x27;state&#x27;: return getState_(p);
+      case &#x27;setState&#x27;: return setState_(p);
+      case &#x27;checkPin&#x27;: return pinOk_(p.pin) ? { ok: true, valid: true } : { ok: true, valid: false, reason: String(PRESENTER_PIN || &#x27;&#x27;).trim() ? &#x27;wrong&#x27; : &#x27;pin_not_set&#x27; };
+      default: return { ok: false, error: &#x27;unknown_action&#x27; };
+    }
+  } catch (err) {
+    return { ok: false, error: String((err &amp;&amp; err.message) || err) };
+  }
+}
+
+function respond_(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
+}
+
+/* ---------- حفظ مشاركة ---------- */
+function submit_(p) {
+  var session = cleanSession_(p.session);
+  var id = cleanId_(p.activity);
+  if (!id) return { ok: false, error: &#x27;bad_activity&#x27; };
+  var data = (p.data &amp;&amp; typeof p.data === &#x27;object&#x27;) ? p.data : {};
+  var pub = (p.pub &amp;&amp; typeof p.pub === &#x27;object&#x27;) ? p.pub : {};
+  var pubStr = JSON.stringify(pub);
+  if (pubStr.length &gt; 6000) return { ok: false, error: &#x27;too_large&#x27; };
+
+  var clean = {}, keys = [];
+  Object.keys(data).slice(0, 60).forEach(function (k) {
+    var label = cleanLabel_(k);
+    if (!label || has_(clean, label)) return;
+    var v = data[k];
+    clean[label] = (typeof v === &#x27;number&#x27; &amp;&amp; isFinite(v)) ? v : cleanText_(v, 2000);
+    keys.push(label);
+  });
+
+  var lock = LockService.getScriptLock();
+  lock.waitLock(25000);
+  try {
+    var sh = sheetFor_(id, p.sheet, true);
+    var lastCol = sh.getLastColumn();
+    var header = sh.getRange(1, 1, 1, lastCol).getValues()[0];
+    var pubCol = header.indexOf(PUB) + 1;
+    if (pubCol &lt; 1) { pubCol = lastCol + 1; sh.getRange(1, pubCol).setValue(PUB); header.push(PUB); }
+    var added = 0;
+    keys.forEach(function (k) {
+      if (header.indexOf(k) !== -1) return;
+      sh.insertColumnBefore(pubCol);
+      var cell = sh.getRange(1, pubCol);
+      cell.setValue(k);
+      styleHeader_(cell);
+      try { sh.showColumns(pubCol); } catch (e) { /* ignore */ }
+      header.splice(pubCol - 1, 0, k);
+      pubCol++;
+      added++;
+    });
+    if (added) { try { sh.hideColumns(pubCol); } catch (e) { /* ignore */ } }
+    var row = header.map(function (h) {
+      if (h === &#x27;الوقت&#x27;) return new Date();
+      if (h === &#x27;الجلسة&#x27;) return session;
+      if (h === &#x27;المعرّف&#x27;) return cleanText_(p.pid, 40);
+      if (h === PUB) return pubStr;
+      return has_(clean, h) ? clean[h] : &#x27;&#x27;;
+    });
+    sh.appendRow(row);
+    return { ok: true };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+/* ---------- النتائج العامة (للشاشة) ---------- */
+function results_(p) {
+  var session = cleanSession_(p.session);
+  var id = cleanId_(p.activity);
+  var sh = id ? sheetFor_(id, null, false) : null;
+  if (!sh) return { ok: true, items: [], next: 1 };
+  var last = sh.getLastRow();
+  var since = parseInt(p.since, 10);
+  var reset = false;
+  if (!(since &gt;= 1)) since = 1;
+  if (since &gt; last) { since = 1; reset = true; }
+  if (since &gt;= last) return { ok: true, items: [], next: last, reset: reset };
+  var lastCol = sh.getLastColumn();
+  var header = sh.getRange(1, 1, 1, lastCol).getValues()[0];
+  var pubI = header.indexOf(PUB), sesI = header.indexOf(&#x27;الجلسة&#x27;), tsI = header.indexOf(&#x27;الوقت&#x27;);
+  if (pubI &lt; 0 || sesI &lt; 0) return { ok: true, items: [], next: last, reset: reset };
+  var start = since + 1, MAX = 1500;
+  if (last - start + 1 &gt; MAX) start = last - MAX + 1;
+  var rows = sh.getRange(start, 1, last - start + 1, lastCol).getValues();
+  var items = [];
+  rows.forEach(function (r) {
+    if (String(r[sesI]) !== session) return;
+    var pub = null;
+    try { pub = JSON.parse(r[pubI] || &#x27;null&#x27;); } catch (e) { pub = null; }
+    if (!pub || typeof pub !== &#x27;object&#x27;) return;
+    var ts = (r[tsI] instanceof Date) ? r[tsI].getTime() : 0;
+    items.push({ ts: ts, pub: pub });
+  });
+  return { ok: true, items: items, next: last, reset: reset };
+}
+
+/* ---------- حالة العرض (أي نشاط على الشاشة الآن) ---------- */
+function getState_(p) {
+  var session = cleanSession_(p.session);
+  var k = &#x27;st:&#x27; + session;
+  var cache = CacheService.getScriptCache();
+  var v = cache.get(k);
+  if (v === null || v === undefined) {
+    v = PropertiesService.getScriptProperties().getProperty(k) || &#x27;null&#x27;;
+    cache.put(k, v, 30);
+  }
+  var state = null;
+  try { state = JSON.parse(v); } catch (e) { state = null; }
+  return { ok: true, state: state };
+}
+
+function setState_(p) {
+  if (!pinOk_(p.pin)) return { ok: false, error: &#x27;bad_pin&#x27; };
+  var session = cleanSession_(p.session);
+  var s = (p.state &amp;&amp; typeof p.state === &#x27;object&#x27;) ? p.state : {};
+  var state = { i: Math.max(0, parseInt(s.i, 10) || 0), a: s.a ? (cleanId_(s.a) || null) : null, at: Date.now() };
+  var v = JSON.stringify(state);
+  PropertiesService.getScriptProperties().setProperty(&#x27;st:&#x27; + session, v);
+  CacheService.getScriptCache().put(&#x27;st:&#x27; + session, v, 30);
+  return { ok: true, state: state };
+}
+
+/* ---------- أدوات ---------- */
+function ss_() {
+  return SPREADSHEET_ID ? SpreadsheetApp.openById(SPREADSHEET_ID) : SpreadsheetApp.getActiveSpreadsheet();
+}
+
+function sheetFor_(id, title, create) {
+  var props = PropertiesService.getScriptProperties();
+  var ss = ss_();
+  var key = &#x27;sheet:&#x27; + id;
+  var name = props.getProperty(key);
+  var sh = name ? ss.getSheetByName(name) : null;
+  if (sh || !create) return sh;
+  var base = cleanText_(title || id, 90).replace(/^&#x27;/, &#x27;&#x27;).replace(/[\[\]\*\?\/\\:]/g, &#x27; &#x27;).replace(/\s+/g, &#x27; &#x27;).trim() || id;
+  name = base;
+  var n = 2;
+  while (ss.getSheetByName(name)) { name = base + &#x27; &#x27; + n; n++; }
+  sh = ss.insertSheet(name);
+  var hdr = FIXED.concat([PUB]);
+  sh.getRange(1, 1, 1, hdr.length).setValues([hdr]);
+  styleHeader_(sh.getRange(1, 1, 1, hdr.length));
+  sh.setFrozenRows(1);
+  try { sh.setRightToLeft(true); } catch (e) { /* ignore */ }
+  try { sh.hideColumns(hdr.length); } catch (e) { /* ignore */ }
+  try { sh.setColumnWidth(1, 150); } catch (e) { /* ignore */ }
+  props.setProperty(key, name);
+  return sh;
+}
+
+function styleHeader_(range) {
+  try {
+    range.setFontWeight(&#x27;bold&#x27;).setFontColor(&#x27;#FFFFFF&#x27;).setBackground(&#x27;#0A1F44&#x27;).setWrap(true).setVerticalAlignment(&#x27;middle&#x27;);
+  } catch (e) { /* ignore */ }
+}
+
+function cleanSession_(s) {
+  s = String(s || &#x27;&#x27;).toUpperCase().replace(/[^A-Z0-9_-]/g, &#x27;&#x27;).slice(0, 24);
+  return s || &#x27;OPEN&#x27;;
+}
+
+function cleanId_(s) {
+  s = String(s || &#x27;&#x27;).toLowerCase().replace(/[^a-z0-9_-]/g, &#x27;&#x27;).slice(0, 32);
+  return s;
+}
+
+function cleanLabel_(k) {
+  var s = String(k || &#x27;&#x27;).replace(/[\u0000-\u001F\u007F]/g, &#x27;&#x27;).replace(/\s+/g, &#x27; &#x27;).trim().slice(0, 60);
+  if (!s || s === PUB || FIXED.indexOf(s) !== -1) return &#x27;&#x27;;
+  if (/^[=+\-@]/.test(s)) s = &#x27;\u200F&#x27; + s;
+  return s;
+}
+
+function cleanText_(v, max) {
+  if (v === null || v === undefined) return &#x27;&#x27;;
+  var s = String(v).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, &#x27;&#x27;).slice(0, max || 2000);
+  if (/^[=+\-@]/.test(s)) s = &quot;&#x27;&quot; + s; // منع تنفيذ الصيغ داخل الجدول
+  return s;
+}
+
+function pinOk_(pin) {
+  var real = String(PRESENTER_PIN || &#x27;&#x27;).trim();
+  return !!real &amp;&amp; String(pin || &#x27;&#x27;).trim() === real;
+}
+
+function copy_(o) { var r = {}; for (var k in o) if (has_(o, k)) r[k] = o[k]; return r; }
+
+function has_(o, k) { return Object.prototype.hasOwnProperty.call(o, k); }
+</textarea>
+      <div class="row"><button class="btn btn-navy" id="copyCode" type="button">نسخ الكود</button><a href="backend/Code.gs" target="_blank">فتح الملف</a></div>
+    </section>
+
+    <section class="card">
+      <h2><span class="n">2</span>ضع الرابط في config.js</h2>
+      <p>افتح <code>config.js</code> بأي محرر نصوص (Notepad / TextEdit / VS Code)، والصق الرابط بين علامتي التنصيص:</p>
+      <pre class="cfg">API_URL: '<b>https://script.google.com/macros/s/AKfy.../exec</b>',</pre>
+      <p>وفي نفس الملف تقدر تعدّل نصوص الغلاف (اسم البرنامج، الجهة، السنة).</p>
+    </section>
+
+    <section class="card">
+      <h2><span class="n">3</span>ارفع المجلد كاملاً على أي استضافة</h2>
+      <p>ارفع المجلد كما هو (مع كل الملفات والمجلدات الفرعية). يشتغل على أي استضافة ملفات ثابتة، مثل:</p>
+      <ul>
+        <li><b>GitHub Pages</b>: مستودع جديد ← ارفع الملفات ← Settings ← Pages ← Branch: main ← Save. يصير الرابط مثل <code>https://username.github.io/inspiring-leadership/</code></li>
+        <li><b>Netlify Drop</b> أو <b>Cloudflare Pages</b>: اسحب المجلد في صفحة الرفع.</li>
+        <li>أي استضافة أو خادم تملكونه (مجلد عام على الموقع).</li>
+      </ul>
+      <div class="note ok">رموز QR تُبنى تلقائياً من رابط الموقع بعد رفعه، فلا تحتاج تعديلها. (إذا أردت تثبيت رابط معيّن، ضعه في <code>PUBLIC_BASE_URL</code> داخل config.js.)</div>
+      <div class="note">الموقع لازم يكون على رابط عام <b>https</b> حتى تفتح الرموز من جوالات الحضور. فتح الملف من جهازك مباشرة يصلح للمعاينة فقط.</div>
+    </section>
+
+    <section class="card">
+      <h2><span class="n">4</span>تأكد أن كل شيء يعمل</h2>
+      <ol class="steps">
+        <li><span>افتح رابط الموقع، واضغط <kbd>L</kbd> ← «اختبار الاتصال». يجب أن تظهر رسالة «الاتصال سليم».</span></li>
+        <li><span>امسح رمز شريحة «انضم للجلسة» بجوالك وسجّل اسمك؛ سيظهر اسمك على الشاشة، وصف جديد في تبويب «التسجيل» داخل الجدول.</span></li>
+      </ol>
+    </section>
+
+    <section class="card">
+      <h2>يوم الجلسة</h2>
+      <ol class="steps">
+        <li><span>افتح العرض على اللابتوب المتصل بالشاشة، واضغط <kbd>F</kbd> لملء الشاشة.</span></li>
+        <li><span>اضغط <kbd>L</kbd> واكتب الرقم السري ← «تفعيل». تُنشأ جلسة جديدة برمز مستقل (مثل <code>QX7K</code>) فتنفصل نتائجها عن أي جلسة سابقة، وتتبعك جوالات المشاركين تلقائياً.</span></li>
+        <li><span>شريحة «انضم للجلسة» فيها الرمز الأساسي، وكل نشاط له رمز خاص يفتحه مباشرة. اضغط <kbd>Q</kbd> في أي وقت لعرض رمز كبير.</span></li>
+        <li><span>للحضور عن بعد: من لوحة الجلسة اضغط «نسخ رابط المشاركة» وأرسله في المحادثة.</span></li>
+        <li><span>اضغط <kbd>P</kbd> لفتح «عرض المقدّم» في نافذة ثانية (الملاحظات، الشريحة التالية، المؤقت) وضعها على شاشة اللابتوب.</span></li>
+        <li><span>مشاركة غير مناسبة على الشاشة؟ اضغط عليها لإخفائها فوراً.</span></li>
+      </ol>
+      <h3>الاختصارات</h3>
+      <table>
+        <tr><td><kbd>→</kbd> <kbd>Space</kbd> <kbd>PageDown</kbd></td><td>التالي (يعمل مع الكليكر)، وبعض الشرائح تكشف محتواها خطوة بخطوة</td></tr>
+        <tr><td><kbd>←</kbd> <kbd>PageUp</kbd></td><td>السابق</td></tr>
+        <tr><td><kbd>G</kbd></td><td>كل الشرائح</td></tr>
+        <tr><td><kbd>V</kbd></td><td>تشغيل/إيقاف المقطع</td></tr>
+        <tr><td><kbd>Q</kbd> / <kbd>L</kbd> / <kbd>P</kbd></td><td>رمز QR كبير / لوحة الجلسة / عرض المقدّم</td></tr>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>البيانات والخصوصية</h2>
+      <ul>
+        <li>كل نشاط يُحفظ في تبويب مستقل داخل الجدول، مع عمود «الجلسة» لتمييز كل لقاء.</li>
+        <li>التسجيل والأنشطة المفتوحة تُحفظ بالاسم وجهة العمل. أما <b>مقياس LPI</b> و<b>نشاط فريق العمل</b> و<b>تقييم الجلسة</b> فتُحفظ دون اسم ولا يمكن ربطها بالتسجيل، تطبيقاً لقاعدة المقياس «لا أحد يطّلع على نتيجتك».</li>
+        <li>العمود الأخير «<code>_public</code>» مخفي ويحمل فقط ما يُعرض على الشاشة — لا تحذفه ولا تعدّل عناوين الأعمدة.</li>
+        <li>للتصدير: <b>ملف ← تنزيل ← Microsoft Excel</b>.</li>
+      </ul>
+      <h3>إذا عدّلت الكود لاحقاً</h3>
+      <p><b>نشر ← إدارة عمليات النشر ← تعديل (القلم) ← الإصدار: إصدار جديد ← نشر</b> <span class="en">(Deploy → Manage deployments → Edit → New version)</span>. الرابط يبقى نفسه.</p>
+    </section>
+
+    <section class="card">
+      <h2>حل المشكلات</h2>
+      <table>
+        <tr><td>«تعذّر الاتصال»</td><td>تأكد أن الرابط في config.js ينتهي بـ <code>/exec</code> (وليس رابط المحرر)، وأن الوصول «أي شخص».</td></tr>
+        <tr><td>الرمز لا يفتح من الجوال</td><td>الموقع ليس على رابط عام بعد، أو الجوال بدون إنترنت.</td></tr>
+        <tr><td>«الرقم غير صحيح»</td><td>الرقم في السطر <code>PRESENTER_PIN</code> داخل السكربت هو المعتمد؛ وأي تعديل عليه يحتاج «إصدار جديد».</td></tr>
+        <tr><td>النتائج تتأخر ثوانٍ</td><td>طبيعي؛ الشاشة تتحدث كل 3 ثوانٍ (قابلة للتعديل في config.js).</td></tr>
+      </table>
+    </section>
+  </main>
+  <script>
+    document.getElementById('copyCode').addEventListener('click', function () {
+      var t = document.getElementById('code'), b = this;
+      t.select();
+      var done = function () { b.textContent = 'تم النسخ ✓'; setTimeout(function () { b.textContent = 'نسخ الكود'; }, 1800); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t.value).then(done, function () { document.execCommand('copy'); done(); });
+      else { document.execCommand('copy'); done(); }
+    });
+  </script>
+</body>
+</html>
