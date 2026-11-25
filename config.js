@@ -9,7 +9,7 @@ window.KIT_CONFIG = {
 
   // اختياري: الرابط العام للموقع بعد رفعه (مثال: https://example.com/inspiring-leadership/)
   // اتركه فارغاً وسيُكتشف تلقائياً من شريط العنوان.
-  PUBLIC_BASE_URL: 'https://alwalit-coder.github.io/inspiring-leadership/',
+  PUBLIC_BASE_URL: 'https://qiyada-mulhima.github.io/',
 
   // نصوص الغلاف
   PROGRAM_NAME: 'دبلوم القيادة التنفيذية 2026',
